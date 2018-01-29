@@ -2,6 +2,8 @@ const path = require("path");
 const fs = require("fs");
 const Sequelize = require("sequelize");
 const moment = require("moment");
+const config = require("config");
+const debug = require("debug")(`${config.app.tag}:app`);
 
 const timezone =
   process.env.TZ ||
@@ -32,6 +34,7 @@ module.exports = (config, debug) => {
   } else {
     opts.logging = false;
   }
-
+  debug(timezone);
+  debug(opts);
   return new Sequelize(Object.assign({ timezone }, opts));
 };

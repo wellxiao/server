@@ -1,3 +1,12 @@
+const sequelize = require("../database/sequelize");
+const mongoose = require("../database/mongoose");
 const path = require("path");
-const router = require("./boot")(path.join(__dirname, "./controllers"));
-module.exports = router;
+
+const models = require("./boot")(
+  { sequelize, mongoose },
+  path.join(__dirname, "./entities")
+);
+require("./relations")(models);
+require("./hooks")(models);
+
+module.exports = models;

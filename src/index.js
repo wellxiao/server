@@ -7,6 +7,7 @@ const debug = require("debug")(`${config.app.tag}:app`);
 const bodyParser = require("body-parser");
 const routes = require("./routes");
 const path = require("path");
+const postware = require('./routes/postware');
 
 const app = express();
 
@@ -26,6 +27,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
  */
 if (config.app.static) {
   app.use(express.static(path.join(__dirname, "..", config.app.static)));
+}
+
+/**
+ * postware
+ */
+if (config.app.postware) {
+  app.use(postware);
 }
 
 /**
